@@ -12,8 +12,16 @@ import (
 
 //CarTripService construct for car service
 type CarTripService struct {
-	DataRetriever *repo.MedallionRepo
+	DataRetriever repo.DataRetriever
 	Cache         cachingstore.CartTripCacheService
+}
+
+//NewMockCarTripService returns CarTripService
+func NewMockCarTripService() *CarTripService {
+	return &CarTripService{
+		DataRetriever: repo.NewMockMedallionRepo(),
+		Cache:         cachingstore.NewMockCache(),
+	}
 }
 
 //NewCarTripService returns CarTripService
@@ -24,9 +32,20 @@ func NewCarTripService() *CarTripService {
 	}
 }
 
+//InvalidateCache invalidates cache
+func (c *CarTripService) InvalidateCache() error {
+	err := c.Cache.ClearCache()
+	if err != nil {
+		return fmt.Errorf("Error occurred while clearing cache")
+	}
+
+	log.Printf("cache was invalidated at %v", time.Now().UTC())
+	return nil
+}
+
 //GetTripCount handler for fetching trip count
 func (c *CarTripService) GetTripCount(medallionList []string, pickupDate *time.Time, isFresh bool) (*model.GetTripResponse, error) {
-	if medallionList == nil {
+	if medallionList == nil || len(medallionList) == 0 {
 		return nil, fmt.Errorf("id was empty in request")
 	}
 
@@ -129,7 +148,7 @@ func (c *CarTripService) updateTripCache(trip *model.TripSummary) error {
 	key := trip.Medallion + "-" + trip.PickupDate
 	value := trip.Count
 
-	log.Printf("updating key: %s, value: %s", key, value)
+	log.Printf("updating key: %s, value: %d", key, value)
 	err := c.Cache.Set(key, value)
 	return err
 }

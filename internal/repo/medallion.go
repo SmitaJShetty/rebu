@@ -12,7 +12,7 @@ import (
 
 //DataRetriever interface
 type DataRetriever interface {
-	GetTripCount(medallionNumber []string, pickupDate *time.Time) (int, error)
+	GetTripCount(medallionList []string, pickupDate *time.Time) ([]*model.TripSummary, error)
 }
 
 //MedallionRepo repo for medallion
