@@ -14,9 +14,9 @@ type CarTripService struct {
 }
 
 //NewCarTripService returns CarTripService
-func NewCarTripService(mrepo *repo.MedallionRepo) *CarTripService {
+func NewCarTripService() *CarTripService {
 	return &CarTripService{
-		DataRetriever: mrepo,
+		DataRetriever: repo.NewMedallionRepo(),
 	}
 }
 
@@ -39,11 +39,7 @@ func (c *CarTripService) GetTripCount(medallionNumber string, pickupDate *time.T
 		return nil, getErr
 	}
 
-	if trips == nil {
-		return nil, fmt.Errorf("no trips were returned for pickupdate: %s and medallionNumber %s", pickupDate, medallionNumber)
-	}
-
 	return &model.GetTripResponse{
-		Response: len(trips),
+		Response: trips,
 	}, nil
 }

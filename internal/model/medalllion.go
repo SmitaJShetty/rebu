@@ -1,12 +1,10 @@
 package model
 
-import "time"
+import (
+	"time"
 
-import "github.com/SmitaJShetty/rebu/internal/model"
-
-import "github.com/pborman/uuid"
-
-import "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
+)
 
 //Medallion construct for medallion
 type Medallion struct {
@@ -31,8 +29,8 @@ type Medallion struct {
 func NewMedallion(medNumber string, hlice string, vendorid string, rateCode string, storeFwdFlag string,
 	pickupDateTime time.Time, dropOffDateTime time.Time, passCount int, tripTimeSec int64,
 	tripDistance int32) *Medallion {
-	return &model.Medallion{
-		ID:              uuid.NewUUID(),
+	return &Medallion{
+		ID:              "123456",
 		MedallionNumber: medNumber,
 		HackLicense:     hlice,
 		VendorID:        vendorid,

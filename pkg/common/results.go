@@ -2,6 +2,7 @@ package common
 
 import (
 	"encoding/json"
+	"github.com/SmitaJShetty/rebu/pkg/apperror"
 	"net/http"
 )
 
@@ -13,7 +14,7 @@ func SendResult(w http.ResponseWriter, r *http.Request, resultJSON []byte) {
 }
 
 //SendErrorResponse sends error response
-func SendErrorResponse(w http.ResponseWriter, r *http.Request, appErr *AppError) {
+func SendErrorResponse(w http.ResponseWriter, r *http.Request, appErr *apperror.AppError) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusBadRequest)
 	json, _ := json.Marshal(appErr)
