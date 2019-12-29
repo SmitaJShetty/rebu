@@ -43,8 +43,13 @@ func (mr *MedallionRepo) GetTripCount(medallionList []string, pickupDate *time.T
 	}
 
 	var trips []*model.TripSummary
-	sql := `select count(medallion) as count, medallion, date(pickup_datetime) as pickup_date from cab_trip_data where date(pickup_datetime)=? and medallion in (?) 
-				group by medallion,date(pickup_datetime)`
+	sql := `SELECT COUNT(medallion) AS count, 
+				medallion, 
+				DATE_FORMAT(pickup_datetime,"%Y-%m-%d") AS pickup_date 
+			FROM cab_trip_data WHERE date(pickup_datetime)=? AND medallion IN (?) 
+			GROUP BY medallion,
+				DATE_FORMAT(pickup_datetime,"%Y-%m-%d") `
+
 	db := mr.db.Debug().Raw(sql, pickupDate.Format("2006-01-02"), medallionList).Scan(&trips)
 	if db.Error != nil {
 		return nil, db.Error

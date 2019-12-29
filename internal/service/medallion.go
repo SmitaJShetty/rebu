@@ -43,6 +43,7 @@ func (c *CarTripService) GetTripCount(medallionList []string, pickupDate *time.T
 
 	//get from db
 	if !isFresh {
+		log.Printf("fetching from cache")
 		trips, getErr = c.getFromCache(medallionList, pickupDate.Format("2006-01-02"))
 		if getErr != nil {
 			return nil, getErr
@@ -62,6 +63,7 @@ func (c *CarTripService) GetTripCount(medallionList []string, pickupDate *time.T
 		return nil, getErr
 	}
 
+	log.Println("fetched trips from db")
 	updateErr := c.updateCache(trips)
 	if updateErr != nil {
 		return nil, updateErr
@@ -104,6 +106,7 @@ func (c *CarTripService) updateCache(trips []*model.TripSummary) error {
 
 	hasError := false
 	for _, t := range trips {
+		log.Println("updating trip information for trip:", t.Medallion, t.PickupDate)
 		updateTripErr := c.updateTripCache(t)
 		if updateTripErr != nil {
 			hasError = true
@@ -126,6 +129,7 @@ func (c *CarTripService) updateTripCache(trip *model.TripSummary) error {
 	key := trip.Medallion + "-" + trip.PickupDate
 	value := trip.Count
 
+	log.Printf("updating key: %s, value: %s", key, value)
 	err := c.Cache.Set(key, value)
 	return err
 }
