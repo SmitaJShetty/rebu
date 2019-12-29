@@ -15,6 +15,17 @@ type Handlers struct {
 	CarTripSvc *service.CarTripService
 }
 
+//InvalidateCache invalidates cache
+func (h *Handlers) InvalidateCache(w http.ResponseWriter, req *http.Request) {
+	err := h.CarTripSvc.InvalidateCache()
+	if err != nil {
+		SendErrorResponse(w, req, apperror.NewAppError(err.Error(), http.StatusInternalServerError))
+		return
+	}
+
+	SendResult(w, req, []byte("Cache invalidated successfully"))
+}
+
 //GetTrips handler for GetTrips
 func (h *Handlers) GetTrips(w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
