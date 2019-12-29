@@ -2,6 +2,8 @@ GO=go
 GOBUILD= go build
 APPNAME=carttrip
 APP_BUILD_FOLDER=build/carttrip
+DBNAME=carttripdb
+DB_DOCKER_NAME=carttripdb
 
 .PHONEY: build 
 bld: 
@@ -19,6 +21,13 @@ clean: ## Remove all the temporary and build files
 redis-start:
 	docker pull redis
 	docker run --name redis-test-instance -p 6379:6379 -d redis
+
+db-upbd:
+	docker-compose up --build --detach
+
+db-stop:
+	docker-compose stop
+	docker rm $(DB_DOCKER_NAME)
 
 run: bld
 	$(APP_BUILD_FOLDER)

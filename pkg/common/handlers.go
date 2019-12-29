@@ -3,6 +3,7 @@ package common
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/SmitaJShetty/rebu/internal/service"
 	"github.com/SmitaJShetty/rebu/pkg/apperror"
@@ -17,10 +18,15 @@ type Handlers struct {
 //GetTrips handler for GetTrips
 func (h *Handlers) GetTrips(w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
-	medallionNumber := vars["medallionNumber"]
+	pickupDate := vars["pickupdate"]
 
 	q := req.URL.Query()
-	pickupDate := q.Get("pickupdate")
+	medallionList := q.Get("medallionlist")
+
+	var isFresh bool
+	if q.Get("fresh") == "1" {
+		isFresh = true
+	}
 
 	date, dateErr := GetDateFromString(pickupDate)
 	if dateErr != nil {
@@ -28,7 +34,7 @@ func (h *Handlers) GetTrips(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	trips, getTripsErr := h.CarTripSvc.GetTripCount(medallionNumber, date)
+	trips, getTripsErr := h.CarTripSvc.GetTripCount(strings.Split(medallionList, ","), date, isFresh)
 	if getTripsErr != nil {
 		SendErrorResponse(w, req, apperror.NewAppError(getTripsErr.Error(), http.StatusInternalServerError))
 		return

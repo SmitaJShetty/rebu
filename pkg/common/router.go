@@ -24,7 +24,7 @@ func Start(listenAddress string) {
 
 // addRoutes adds routes
 func addRoutes(router *mux.Router, h *Handlers) {
-	router.HandleFunc("/cartrip/{medallion}", h.GetTrips).Methods("GET")
+	router.HandleFunc("/cartrip/{pickupdate}", h.GetTrips).Methods("GET")
 }
 
 // GetRouter gets router

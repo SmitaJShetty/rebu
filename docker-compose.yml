@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    build:
+      context: ./MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: carttripdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpass
+    container_name: carttripdb
+    ports:
+      - "3306:3306"
+    tty: true

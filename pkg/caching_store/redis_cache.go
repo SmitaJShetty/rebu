@@ -1,3 +1,11 @@
+package cachingstore
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/go-redis/redis"
+)
 
 // NewCacheService returns a new cache service
 func NewCacheService() CartTripCacheService {
@@ -25,42 +33,27 @@ func (rc *RedisCache) isCacheActive() (bool, error) {
 }
 
 //Get returns a value mapped to key
-func (rc *RedisCache) Get(key string) (*model.CartTrip, error) {
+func (rc *RedisCache) Get(key string) (int, error) {
 	if len(key) == 0 {
-		return nil, fmt.Errorf("Get: Key's empty")
+		return 0, fmt.Errorf("Get: Key's empty")
 	}
 
-	isCacheAlive, aliveErr := rc.isCacheActive()
-	if aliveErr != nil {
-		return nil, aliveErr
-	}
-
-	if !isCacheAlive {
-		return nil, fmt.Errorf("Get:cache server not alive")
-	}
-
-	var value model.CartTrip
-	valueBytes, valueErr := rc.Client.Get(key).Bytes()
+	value, valueErr := rc.Client.Get(key).Int()
 	if valueErr == redis.Nil {
 		log.Println(fmt.Errorf("Get:key (%s) does not exist;", key))
-		return nil, nil
+		return 0, nil
 	}
 
-	if valueErr != nil {
-		return nil, valueErr
-	}
-
-	err := json.Unmarshal(valueBytes, &value)
-	return &value, err
+	return value, valueErr
 }
 
 //Set saves a key,value into redis
-func (rc *RedisCache) Set(key string, value *model.CartTrip) error {
+func (rc *RedisCache) Set(key string, value int) error {
 	if key == "" {
 		return fmt.Errorf("Set:Invalid key")
 	}
 
-	if value == nil {
+	if value == 0 {
 		return fmt.Errorf("Set:Invalid value(%v) for key (%s)", value, key)
 	}
 
@@ -68,12 +61,7 @@ func (rc *RedisCache) Set(key string, value *model.CartTrip) error {
 		return fmt.Errorf("Set:Invalid client reference")
 	}
 
-	valueMarshaled, valMarshaledErr := json.Marshal(*value)
-	if valMarshaledErr != nil {
-		return valMarshaledErr
-	}
-
-	setValueErr := rc.Client.Set(key, valueMarshaled, 0).Err()
+	setValueErr := rc.Client.Set(key, value, 0).Err()
 	if setValueErr != nil {
 		return setValueErr
 	}
@@ -96,5 +84,15 @@ func (rc *RedisCache) Del(key string) error {
 		return setValueErr
 	}
 
+	return nil
+}
+
+//ClearCache clears redis cache
+func (rc *RedisCache) ClearCache() error {
+	clearErr := rc.Client.FlushAll().Err()
+	if clearErr != nil {
+		return clearErr
+	}
+	log.Printf("cache cleared")
 	return nil
 }

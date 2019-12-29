@@ -3,12 +3,11 @@ package model
 import (
 	"time"
 
-	"github.com/jinzhu/gorm"
+	"github.com/google/uuid"
 )
 
 //Medallion construct for medallion
 type Medallion struct {
-	gorm.Model
 	ID              string    `json:"id"`
 	MedallionNumber string    `json:"medallion_number"`
 	HackLicense     string    `json:"hack_license"`
@@ -19,18 +18,20 @@ type Medallion struct {
 	DropoffDatetime time.Time `json:"dropoff_datetime"`
 	PassengerCount  int       `json:"passenger_count"`
 	TripTimeInSecs  int64     `json:"trip_time_in_secs"`
-	TripDistance    int32     `json:"trip_distance"`
-	CreatedAt       time.Time `json:"created_at"`
-	UpdatedAt       time.Time `json:"updated_at"`
-	DeletedAt       time.Time `json:"deleted_at"`
+	TripDistance    float32   `json:"trip_distance"`
+}
+
+//TableName db table name for model Metallion
+func (Medallion) TableName() string {
+	return "cab_trip_data"
 }
 
 //NewMedallion returns a new medallion
 func NewMedallion(medNumber string, hlice string, vendorid string, rateCode string, storeFwdFlag string,
 	pickupDateTime time.Time, dropOffDateTime time.Time, passCount int, tripTimeSec int64,
-	tripDistance int32) *Medallion {
+	tripDistance float32) *Medallion {
 	return &Medallion{
-		ID:              "123456",
+		ID:              uuid.New().String(),
 		MedallionNumber: medNumber,
 		HackLicense:     hlice,
 		VendorID:        vendorid,
