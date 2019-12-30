@@ -6,6 +6,8 @@ A makefile has been created with items for setting up redis, mysql docker contai
 
 Arguments that are to be provided for Get are pickupdate, comma separated list of medallions, fresh value. When fresh is set to true (case insensitive), data is fetched from mysql db; 
 
+Gomod is used in this implementation, go1.12.5 is used. Any version that supports gomod can be used to test this. 
+
 Setup instructions:
 
 Set up environment parameters: 
@@ -27,7 +29,7 @@ Following command builds and and runs the golang application:
 
 ``` make run ``` 
 
-```make test``` will execute tests
+``` make test``` will execute tests
 
 ------------------------------------------------------------------------------
 
