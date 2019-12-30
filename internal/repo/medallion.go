@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
-	"rebu/internal/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"rebu/internal/model"
 )
 
 //DataRetriever interface
@@ -29,10 +29,10 @@ func NewMedallionRepo() *MedallionRepo {
 }
 
 func getDB() *gorm.DB {
-	dbUser:= os.Getenv("testuser")
-	dbPass:= os.Getenv("testpass")
-	connStr:= fmt.Sprintf("%s:%s@(127.0.0.1:3306)/carttripdb?charset=utf8&parseTime=True&loc=Local", dbUser,dbPass)
-	db, err := gorm.Open("mysql",connStr )
+	dbUser := os.Getenv("DB_USERNAME")
+	dbPass := os.Getenv("DB_PASSWORD")
+	connStr := fmt.Sprintf("%s:%s@(127.0.0.1:3306)/carttripdb?charset=utf8&parseTime=True&loc=Local", dbUser, dbPass)
+	db, err := gorm.Open("mysql", connStr)
 	if err != nil {
 		log.Printf("error while opening connection to db, err: %v", err)
 		return nil

@@ -3,15 +3,17 @@ package cachingstore
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/go-redis/redis"
 )
 
 // NewCacheService returns a new cache service
 func NewCacheService() CartTripCacheService {
+	redisListener := os.Getenv("REDIS_LISTENER_PORT")
 	return &RedisCache{
 		Client: redis.NewClient(&redis.Options{
-			Addr:     "localhost:6379",
+			Addr:     redisListener,
 			Password: "",
 			DB:       0,
 		}),
