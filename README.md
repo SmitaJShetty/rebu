@@ -10,10 +10,10 @@ Setup instructions:
 
 Set up environment parameters: 
 ```
-APP_LISTENER_PORT: localhost:8090
-DB_USERNAME: testuser
-DB_PASSWORD: testpass
-REDIS_LISTENER_PORT:localhost:6379
+export APP_LISTENER_PORT=localhost:8090
+export DB_USERNAME=testuser
+export DB_PASSWORD=testpass
+export REDIS_LISTENER_PORT=localhost:6379
 ```
 This command sets up redis cache container:
 
