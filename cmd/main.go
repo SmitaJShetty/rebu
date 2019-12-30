@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/SmitaJShetty/rebu/pkg/common"
+	"os"
+	"rebu/pkg/common"
 )
 
 func main() {
-	listenAddress := "localhost:8090"
+	listenAddress := os.Getenv("APP_LISTENER_PORT")
 	common.Start(listenAddress)
 	fmt.Println("Server listening on: ", listenAddress)
 	select {}

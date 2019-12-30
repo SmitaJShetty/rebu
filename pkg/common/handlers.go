@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/SmitaJShetty/rebu/internal/service"
-	"github.com/SmitaJShetty/rebu/pkg/apperror"
+	"rebu/internal/service"
+	"rebu/pkg/apperror"
 	"github.com/gorilla/mux"
 )
 
@@ -35,7 +35,7 @@ func (h *Handlers) GetTrips(w http.ResponseWriter, req *http.Request) {
 	medallionList := q.Get("medallionlist")
 
 	var isFresh bool
-	if q.Get("fresh") == "1" {
+	if strings.ToLower(q.Get("fresh")) == "true" {
 		isFresh = true
 	}
 

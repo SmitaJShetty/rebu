@@ -1,6 +1,6 @@
 package model
 
-import "github.com/SmitaJShetty/rebu/pkg/apperror"
+import "rebu/pkg/apperror"
 
 //GetTripResponse construct for response
 type GetTripResponse struct {

@@ -3,11 +3,12 @@ package repo
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
-	"github.com/SmitaJShetty/rebu/internal/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"rebu/internal/model"
 )
 
 //DataRetriever interface
@@ -22,13 +23,14 @@ type MedallionRepo struct {
 
 //NewMedallionRepo returns medallion repo
 func NewMedallionRepo() *MedallionRepo {
-	return &MedallionRepo{
-		db: getDB(),
-	}
+	return &MedallionRepo{}
 }
 
 func getDB() *gorm.DB {
-	db, err := gorm.Open("mysql", "testuser:testpass@(127.0.0.1:3306)/carttripdb?charset=utf8&parseTime=True&loc=Local")
+	dbUser := os.Getenv("DB_USERNAME")
+	dbPass := os.Getenv("DB_PASSWORD")
+	connStr := fmt.Sprintf("%s:%s@(127.0.0.1:3306)/carttripdb?charset=utf8&parseTime=True&loc=Local", dbUser, dbPass)
+	db, err := gorm.Open("mysql", connStr)
 	if err != nil {
 		log.Printf("error while opening connection to db, err: %v", err)
 		return nil
@@ -38,9 +40,7 @@ func getDB() *gorm.DB {
 
 //GetTripCount returns trip count for a medallion and pickupdate
 func (mr *MedallionRepo) GetTripCount(medallionList []string, pickupDate *time.Time) ([]*model.TripSummary, error) {
-	if mr.db == nil {
-		mr.db = getDB()
-	}
+	mr.db = getDB()
 
 	var trips []*model.TripSummary
 	sql := `SELECT COUNT(medallion) AS count, 
