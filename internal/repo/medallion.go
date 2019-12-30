@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/SmitaJShetty/rebu/internal/model"
+	"../../internal/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )

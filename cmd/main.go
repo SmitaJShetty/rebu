@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/SmitaJShetty/rebu/pkg/common"
+	"../pkg/common"
 )
 
 func main() {

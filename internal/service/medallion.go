@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/SmitaJShetty/rebu/internal/model"
-	"github.com/SmitaJShetty/rebu/internal/repo"
-	cachingstore "github.com/SmitaJShetty/rebu/pkg/caching_store"
+	"../../internal/model"
+	"../../internal/repo"
+	cachingstore "../../pkg/caching_store"
 )
 
 //CarTripService construct for car service

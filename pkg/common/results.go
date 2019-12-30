@@ -2,7 +2,7 @@ package common
 
 import (
 	"encoding/json"
-	"github.com/SmitaJShetty/rebu/pkg/apperror"
+	"../../pkg/apperror"
 	"net/http"
 )
 
