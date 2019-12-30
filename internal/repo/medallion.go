@@ -3,6 +3,7 @@ package repo
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"../../internal/model"
@@ -28,7 +29,10 @@ func NewMedallionRepo() *MedallionRepo {
 }
 
 func getDB() *gorm.DB {
-	db, err := gorm.Open("mysql", "testuser:testpass@(127.0.0.1:3306)/carttripdb?charset=utf8&parseTime=True&loc=Local")
+	dbUser:= os.Getenv("testuser")
+	dbPass:= os.Getenv("testpass")
+	connStr:= fmt.Sprintf("%s:%s@(127.0.0.1:3306)/carttripdb?charset=utf8&parseTime=True&loc=Local", dbUser,dbPass)
+	db, err := gorm.Open("mysql",connStr )
 	if err != nil {
 		log.Printf("error while opening connection to db, err: %v", err)
 		return nil
