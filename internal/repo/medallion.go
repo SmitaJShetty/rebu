@@ -23,9 +23,7 @@ type MedallionRepo struct {
 
 //NewMedallionRepo returns medallion repo
 func NewMedallionRepo() *MedallionRepo {
-	return &MedallionRepo{
-		db: getDB(),
-	}
+	return &MedallionRepo{}
 }
 
 func getDB() *gorm.DB {
@@ -42,9 +40,7 @@ func getDB() *gorm.DB {
 
 //GetTripCount returns trip count for a medallion and pickupdate
 func (mr *MedallionRepo) GetTripCount(medallionList []string, pickupDate *time.Time) ([]*model.TripSummary, error) {
-	if mr.db == nil {
-		mr.db = getDB()
-	}
+	mr.db = getDB()
 
 	var trips []*model.TripSummary
 	sql := `SELECT COUNT(medallion) AS count, 

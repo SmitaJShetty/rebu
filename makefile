@@ -31,3 +31,6 @@ db-stop:
 
 run: bld
 	$(APP_BUILD_FOLDER)
+
+test: bld
+	go test ./...
