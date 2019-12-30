@@ -8,7 +8,7 @@ Arguments that are to be provided for Get are pickupdate, comma separated list o
 
 Gomod is used in this implementation. I've implemented and tested with version go1.12.5. Any version that supports gomod can be used to test this. Go has to be available locally. 
 
-* Setup instructions:  *
+**Setup instructions:**
 
 Install go
 
