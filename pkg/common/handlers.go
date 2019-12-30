@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"../../internal/service"
-	"../../pkg/apperror"
+	"rebu/internal/service"
+	"rebu/pkg/apperror"
 	"github.com/gorilla/mux"
 )
 

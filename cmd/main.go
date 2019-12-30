@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"../pkg/common"
+	"rebu/pkg/common"
 	"os"
 )
 

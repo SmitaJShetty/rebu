@@ -1,4 +1,4 @@
-module github.com/SmitaJShetty/rebu
+module rebu
 
 go 1.12
 

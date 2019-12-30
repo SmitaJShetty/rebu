@@ -3,7 +3,7 @@ package repo
 import (
 	"time"
 
-	"../../internal/model"
+	"rebu/internal/model"
 	"github.com/stretchr/testify/mock"
 )
 

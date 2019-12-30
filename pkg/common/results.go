@@ -2,8 +2,8 @@ package common
 
 import (
 	"encoding/json"
-	"../../pkg/apperror"
 	"net/http"
+	"rebu/pkg/apperror"
 )
 
 //SendResult sends result over http response

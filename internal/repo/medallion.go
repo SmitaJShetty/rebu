@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"../../internal/model"
+	"rebu/internal/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )
