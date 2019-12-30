@@ -27,7 +27,7 @@ Following command builds and and runs the golang application:
 
 ``` make run ``` 
 
-```make test``` will execute tests
+``` make test``` will execute tests
 
 ------------------------------------------------------------------------------
 

@@ -41,6 +41,7 @@ func getDB() *gorm.DB {
 //GetTripCount returns trip count for a medallion and pickupdate
 func (mr *MedallionRepo) GetTripCount(medallionList []string, pickupDate *time.Time) ([]*model.TripSummary, error) {
 	mr.db = getDB()
+	defer mr.db.Close()
 
 	var trips []*model.TripSummary
 	sql := `SELECT COUNT(medallion) AS count, 
