@@ -2,7 +2,7 @@
 
 An golang backend application that fetches data from mysql db and uses caching. Redis cache is used. 
 
-A makefile has been created with items for setting up redis, mysql docker containers. Application itself is not containerized and conncects to redis and mysql db. 
+A makefile has been created with items for setting up redis, mysql docker containers. Application itself is not containerized and conncects to redis and mysql db containers. 
 
 Arguments that are to be provided for Get are pickupdate, comma separated list of medallions, fresh value. When fresh is set to true (case insensitive), data is fetched from mysql db; 
 
