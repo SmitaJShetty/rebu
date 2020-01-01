@@ -14,10 +14,10 @@ Install go
 
 Set up environment parameters: 
 ```
-export APP_LISTENER_PORT=localhost:8090
+export APP_LISTENER_ADDR=localhost:8090
 export DB_USERNAME=testuser
 export DB_PASSWORD=testpass
-export REDIS_LISTENER_PORT=localhost:6379
+export REDIS_LISTENER_ADDR=localhost:6379
 ```
 This command sets up redis cache container:
 

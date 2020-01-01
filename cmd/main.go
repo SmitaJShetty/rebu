@@ -9,9 +9,9 @@ import (
 )
 
 func main() {
-	listenAddress := strings.Trim(os.Getenv("APP_LISTENER_PORT"), " ")
+	listenAddress := strings.Trim(os.Getenv("APP_LISTENER_ADDR"), " ")
 	if listenAddress == "" {
-		log.Fatal("environment variable APP_LISTENER_PORT not set")
+		log.Fatal("environment variable APP_LISTENER_ADDR not set")
 	}
 
 	err := verifyEnvironment()
@@ -33,8 +33,8 @@ func verifyEnvironment() error {
 		return fmt.Errorf("Env variable DB_PASSWORD was not set")
 	}
 
-	if strings.Trim(os.Getenv("REDIS_LISTENER_PORT"), " ") == "" {
-		return fmt.Errorf("Env variable REDIS_LISTENER_PORT was not set")
+	if strings.Trim(os.Getenv("REDIS_LISTENER_ADDR"), " ") == "" {
+		return fmt.Errorf("Env variable REDIS_LISTENER_ADDR was not set")
 	}
 
 	return nil

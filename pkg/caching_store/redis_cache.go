@@ -10,7 +10,7 @@ import (
 
 // NewCacheService returns a new cache service
 func NewCacheService() CartTripCacheService {
-	redisListener := os.Getenv("REDIS_LISTENER_PORT")
+	redisListener := os.Getenv("REDIS_LISTENER_ADDR")
 	return &RedisCache{
 		Client: redis.NewClient(&redis.Options{
 			Addr:     redisListener,
