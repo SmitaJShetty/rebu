@@ -39,7 +39,7 @@ Following command builds and and runs the golang application:
 ```
 curl "http://localhost:8090/cartrip/2013-12-01?medallionlist=D7D598CD99978BD012A87A76A7C891B7,42D815590CE3A33F3A23DBF145EE66E3&fresh=true"
 
-curl "http://localhost:8090/cartrip/clearcache" METHOD=Post  
+curl -X POST  "http://localhost:8090/cartrip/clearcache"
 
 curl "http://localhost:8090/cartrip/2013-12-01?medallionlist=D7D598CD99978BD012A87A76A7C891B7,42D815590CE3A33F3A23DBF145EE66E3,B672154F0FD3D6B5277580C3B7CBBF8E&fresh=true"
 

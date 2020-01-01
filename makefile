@@ -15,8 +15,8 @@ build-linux: clean ## Prepare a build for a linux environment
 	./$(APPNAME)
 
 
-clean: ## Remove all the temporary and build files
-	go clean
+clean: 
+	rm $(APP_BUILD_FOLDER)
 
 redis-start:
 	docker pull redis
